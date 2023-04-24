@@ -18,7 +18,7 @@ namespace BankingApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult AccountDetails()
         {
             return View();
         }
