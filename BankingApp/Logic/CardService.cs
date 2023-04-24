@@ -10,14 +10,10 @@ namespace Logic;
 
 public class CardService
 {
-    private readonly ICardRepository cardRepository;
+    private readonly IUserRepository userRepository;
 
-    public CardService(ICardRepository cardRepository)
+    public CardService(IUserRepository userRepository)
     {
-        this.cardRepository = cardRepository;
-    }
-    public IEnumerable<Card> GetCards()
-    {
-       return this.cardRepository.GetAll();
+        this.userRepository = userRepository;
     }
 }

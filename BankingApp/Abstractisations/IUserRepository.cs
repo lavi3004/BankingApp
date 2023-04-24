@@ -1,12 +1,12 @@
-﻿using System;
+﻿using DataAccess.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Abstractisations
+namespace DataAccess.Abstactisations;
+
+public interface IUserRepository: IBaseRepository<User>
 {
-    internal interface IUserInterface
-    {
-    }
 }

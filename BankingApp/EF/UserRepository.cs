@@ -12,4 +12,9 @@ namespace DataAccess.EF;
 public class UserRepository : BaseRepository<User>, IUserRepository
 {
     public UserRepository(DbContext dbContext) : base(dbContext) { }
+
+    public void PerformTransaction(Transaction transaction)
+    {
+        this.dbContext.Add(transaction);
+    }
 }
