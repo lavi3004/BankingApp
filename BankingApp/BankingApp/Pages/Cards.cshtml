@@ -1,0 +1,236 @@
+﻿@page
+@model BankingApp.Pages.CardsModel
+@{
+    ViewData["Title"] = "Cards";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Card Boxes Example</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-RhUSmEFl0H/4M6Bj0/d0s4pG9/4TfT6Nqj3UWeN6Q2zl6CZ8jbvCcL3jIz+cQ9KjPZ8RvPSbRr+IpljlxGRT1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        /* Set background color and font family */
+        body {
+            /*background-color: #22333B;*/
+            background-color: #EAE0D5;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        /* Style for card-box */
+        .card-box {
+            width: 400px;
+            height: 200px;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #577590;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            
+            position:realtive;
+        }
+
+        /* Style for card-exp-cvv-box */
+        .card-exp-cvv-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .expiry {
+            flex: 60%;
+        }
+        .cvv {
+            flex:40%;
+        }
+
+        /* Style for card title */
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Style for card content */
+        .card-heading-text {
+            font-size: 12px;
+            color: #000000;
+            margin-top: 16px;
+            margin-bottom: 2px;
+            
+        }
+
+        /* Style for card content */
+        .card-text {
+            font-size: 16px;
+            color: #000000;
+            margin-top: 2px;
+            margin-bottom: 16px;
+        }
+
+
+        /* Style for card button */
+        .btn-card {
+            background-color: #22333B;
+            border-color: #22333B;
+            color: #ffffff;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        /* Style for card button on hover */
+        .btn-card:hover {
+            background-color: #003d85;
+            border-color: #003d85;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card-box">
+                    <h2 class="card-title">Card 1</h2>
+
+                    <p class="card-heading-text">IBAN</p>
+                    <p class="card-text">0000 1111 2222 3333</p>
+
+                    <div class="card-exp-cvv-box">
+                        <div class="expiry">
+                            <p class="card-heading-text">Expiry date</p>
+                            <p class="card-text">07/25</p>
+                        </div>
+                        <div class="cvv">
+                            <p class="card-heading-text">CVV</p>
+                            <p class="card-text">000</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-card">Learn More</button>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card-box">
+                    <h2 class="card-title">Card 2</h2>
+
+                    <p class="card-heading-text">IBAN</p>
+                    <p class="card-text">0000 1111 2222 3333</p>
+
+                    <div class="card-exp-cvv-box">
+                        <div class="expiry">
+                            <p class="card-heading-text">Expiry date</p>
+                            <p class="card-text">07/25</p>
+                        </div>
+                        <div class="cvv">
+                            <p class="card-heading-text">CVV</p>
+                            <p class="card-text">000</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-card">Learn More</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-box">
+                    <h2 class="card-title">Card 3</h2>
+
+                    <p class="card-heading-text">IBAN</p>
+                    <p class="card-text">0000 1111 2222 3333</p>
+
+                    <div class="card-exp-cvv-box">
+                        <div class="expiry">
+                            <p class="card-heading-text">Expiry date</p>
+                            <p class="card-text">07/25</p>
+                        </div>
+                        <div class="cvv">
+                            <p class="card-heading-text">CVV</p>
+                            <p class="card-text">000</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-card">Learn More</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-box">
+                    <h2 class="card-title">Card 4</h2>
+
+                    <p class="card-heading-text">IBAN</p>
+                    <p class="card-text">0000 1111 2222 3333</p>
+
+                    <div class="card-exp-cvv-box">
+                        <div class="expiry">
+                            <p class="card-heading-text">Expiry date</p>
+                            <p class="card-text">07/25</p>
+                        </div>
+                        <div class="cvv">
+                            <p class="card-heading-text">CVV</p>
+                            <p class="card-text">000</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-card">Learn More</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-box">
+                    <h2 class="card-title">Card 5</h2>
+
+                    <p class="card-heading-text">IBAN</p>
+                    <p class="card-text">0000 1111 2222 3333</p>
+
+                    <div class="card-exp-cvv-box">
+                        <div class="expiry">
+                            <p class="card-heading-text">Expiry date</p>
+                            <p class="card-text">07/25</p>
+                        </div>
+                        <div class="cvv">
+                            <p class="card-heading-text">CVV</p>
+                            <p class="card-text">000</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-card">Learn More</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-box">
+                    <h2 class="card-title">Card 6</h2>
+
+                    <p class="card-heading-text">IBAN</p>
+                    <p class="card-text">0000 1111 2222 3333</p>
+
+                    <div class="card-exp-cvv-box">
+                        <div class="expiry">
+                            <p class="card-heading-text">Expiry date</p>
+                            <p class="card-text">07/25</p>
+                        </div>
+                        <div class="cvv">
+                            <p class="card-heading-text">CVV</p>
+                            <p class="card-text">000</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-card">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js" integrity="sha512-nJscfM5IvZ8BW6w5U5c1rhkWP9Ro3z8CzeWAnYJcP+bKr0QOhZbR+OwOroju1+rDZLzv9sgKj8nA45I2NgUPFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+
+
+
+
