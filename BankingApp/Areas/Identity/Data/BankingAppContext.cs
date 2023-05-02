@@ -1,4 +1,5 @@
 ﻿using BankingApp.Areas.Identity.Data;
+using BankingApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,10 @@ public class BankingAppContext : IdentityDbContext<User>
         : base(options)
     {
     }
+
+    public DbSet<Transaction>? Transactions { get; set; }
+    public DbSet<BankAccount>? BankAccounts { get; set; }
+    public DbSet<Card>? Cards { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
