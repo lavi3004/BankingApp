@@ -1,0 +1,151 @@
+﻿@page
+@model BankingApp.Pages.BlockCardModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Card Blocking Page</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			color: #0040a0;
+			text-align: center;
+		}
+
+		form {
+			background-color: #ffffff;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px #cccccc;
+			margin: 0 auto;
+			max-width: 600px;
+			padding: 20px;
+		}
+
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		input[type="password"],
+		textarea {
+			border-radius: 5px;
+			border: 1px solid #cccccc;
+			padding: 5px;
+			width: 100%;
+		}
+
+		select,
+		option {
+			border-radius: 5px;
+			border: 1px solid #cccccc;
+			padding: 5px;
+			width: 100%;
+		}
+
+		button[type="submit"] {
+			background-color: #0040a0;
+			border: none;
+			border-radius: 5px;
+			color: #ffffff;
+			cursor: pointer;
+			font-size: 16px;
+			padding: 10px 20px;
+			margin-top: 10px;
+		}
+
+			button[type="submit"]:hover {
+				background-color: #002060;
+			}
+		/* Style for card-box */
+		.card-box {
+			width: 400px;
+			height: 200px;
+			border-radius: 10px;
+			padding: 20px;
+			margin-top: 20px;
+			background-color: #577590;
+			box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+			position: realtive;
+		}
+
+		/* Style for card-exp-cvv-box */
+		.card-exp-cvv-box {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.expiry {
+			flex: 60%;
+		}
+
+		.cvv {
+			flex: 40%;
+		}
+
+		/* Style for card title */
+		.card-title {
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 5px;
+			margin-bottom: 20px;
+		}
+
+		/* Style for card content */
+		.card-heading-text {
+			font-size: 12px;
+			color: #000000;
+			margin-top: 16px;
+			margin-bottom: 2px;
+		}
+
+		/* Style for card content */
+		.card-text {
+			font-size: 16px;
+			color: #000000;
+			margin-top: 2px;
+			margin-bottom: 16px;
+		}
+	</style>
+
+</head>
+<body>
+	<h1>Card Blocking Page</h1>
+	<div class="card-box" style="margin: 0 auto; margin-bottom: 40px;">
+		<h2 class="card-title">Card 1</h2>
+
+		<p class="card-heading-text">IBAN</p>
+		<p class="card-text">0000 1111 2222 3333</p>
+
+		<div class="card-exp-cvv-box">
+			<div class="expiry">
+				<p class="card-heading-text">Expiry date</p>
+				<p class="card-text">07/25</p>
+			</div>
+			<div class="cvv">
+				<p class="card-heading-text">CVV</p>
+				<p class="card-text">000</p>
+			</div>
+		</div>
+	</div>
+
+	<form>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password">
+		<label for="reason">Reason for blocking:</label>
+		<select id="reason" name="reason">
+			<option value="Furat">Furat</option>
+			<option value="Pierdut">Pierdut</option>
+			<option value="Alt motiv">Alt motiv</option>
+		</select>
+		<button type="submit">Block Card</button>
+	</form>
+
+</body>
+</html>
