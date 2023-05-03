@@ -23,6 +23,8 @@ public class BankingAppContext : IdentityDbContext<User>
 
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
     }
+
+    public DbSet<BankingApp.Models.Model> Model { get; set; } = default!;
 }
 
 public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<User>
