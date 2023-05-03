@@ -1,55 +1,55 @@
 ﻿@model IEnumerable<BankingApp.Models.BankAccount>
 
 @{
-    ViewData["Title"] = "Index";
+	 ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+	<a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IBAN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SWIFT)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Balance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.IBAN)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SWIFT)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Balance)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Currency)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IBAN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SWIFT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Balance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.IBAN)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.SWIFT)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Balance)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Currency)
+			</td>
+			<td>
+				<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+				<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+				<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+			</td>
+		</tr>
 }
-    </tbody>
+	</tbody>
 </table>
 
 

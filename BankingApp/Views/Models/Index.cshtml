@@ -1,35 +1,165 @@
 ﻿@model IEnumerable<BankingApp.Models.Model>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Make a Transaction</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+		h1 {
+			color: #0040a0;
+			text-align: center;
+		}
+
+		form {
+			background-color: #ffffff;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px #cccccc;
+			margin: 0 auto;
+			max-width: 600px;
+			padding: 20px;
+		}
+
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		input[type="text"],
+		input[type="number"],
+		textarea {
+			border-radius: 5px;
+			border: 1px solid #cccccc;
+			padding: 5px;
+			width: 100%;
+		}
+
+		select,
+		option {
+			border-radius: 5px;
+			border: 1px solid #cccccc;
+			padding: 5px;
+			width: 100%;
+		}
+
+		button[type="submit"] {
+			background-color: #0040a0;
+			border: none;
+			border-radius: 5px;
+			color: #ffffff;
+			cursor: pointer;
+			font-size: 16px;
+			padding: 10px 20px;
+			margin-top: 10px;
+		}
+
+			button[type="submit"]:hover {
+				background-color: #002060;
+			}
+		/* Style for card-box */
+		.card-box {
+			width: 400px;
+			height: 200px;
+			border-radius: 10px;
+			padding: 20px;
+			margin-top: 20px;
+			background-color: #577590;
+			box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+			position: realtive;
+		}
+
+		/* Style for card-exp-cvv-box */
+		.card-exp-cvv-box {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.expiry {
+			flex: 60%;
+		}
+
+		.cvv {
+			flex: 40%;
+		}
+
+		/* Style for card title */
+		.card-title {
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 5px;
+			margin-bottom: 20px;
+		}
+
+		/* Style for card content */
+		.card-heading-text {
+			font-size: 12px;
+			color: #000000;
+			margin-top: 16px;
+			margin-bottom: 2px;
+		}
+
+		/* Style for card content */
+		.card-text {
+			font-size: 16px;
+			color: #000000;
+			margin-top: 2px;
+			margin-bottom: 16px;
+		}
+	</style>
+
+</head>
+<body>
+	<h1>Make a Transaction</h1>
+	<div class="card-box" style="margin: 0 auto; margin-bottom: 40px;">
+		<h2 class="card-title">Bank Account</h2>
+
+		<p class="card-heading-text">IBAN</p>
+		<p class="card-text">0000 1111 2222 3333</p>
+
+		<div class="card-exp-cvv-box">
+			<div class="expiry">
+				<p class="card-heading-text">Balance</p>
+				<p class="card-text">$10,000.00</p>
+			</div>
+			<div class="cvv">
+				<p class="card-heading-text">Card Type</p>
+				<p class="card-text">Mastercard</p>
+			</div>
+		</div>
+	</div>
+
+	<form>
+		<label for="from_account">From Account:</label>
+		<input type="text" id="from_account" name="from_account">
+
+		<label for="to_account">To Account (IBAN):</label>
+		<input type="text" id="to_account" name="to_account">
+
+		<label for="amount">Amount:</label>
+		<input type="text" id="amount" name="amount">
+
+		<label for="currency">Currency:</label>
+		<select id="currency" name="currency">
+			<option value="USD">USD</option>
+			<option value="EUR">EUR</option>
+			<option value="RON">RON</option>
+		</select>
+
+		<label for="description">Description:</label>
+		<textarea id="description" name="description"></textarea>
+
+		<button type="submit">Make Transaction</button>
+	</form>
+
+</body>
+</html>
