@@ -10,7 +10,7 @@ public class Transaction
 
     public DateTime Date { get; set; }
 
-    public User Sender { get; set; }
+    public User Sender { get; set; } = new User();
 
     public string Reciver { get; set; } = string.Empty;
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BankingApp.Data;
 using BankingApp.Models;
+using Microsoft.AspNetCore.Identity;
+using BankingApp.Areas.Identity.Data;
 
 namespace BankingApp.Controllers
 {
@@ -14,18 +11,52 @@ namespace BankingApp.Controllers
     {
         private readonly BankingAppContext _context;
 
-        public CardsController(BankingAppContext context)
+        private readonly UserManager<User> _userManager;
+
+        private User _user;
+
+        public CardsController(BankingAppContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
+        }
+
+        private User getUser()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            User user = _userManager.FindByIdAsync(userId).Result;
+
+            return user;
         }
 
         // GET: Cards
         public async Task<IActionResult> Index()
         {
-              return _context.Cards != null ? 
-                          View(await _context.Cards.ToListAsync()) :
-                          Problem("Entity set 'BankingAppContext.Cards'  is null.");
+            var userId = _userManager.GetUserId(HttpContext.User);
+            _user = _userManager.FindByIdAsync(userId).Result;
+
+            if (userId == null)
+            {
+                return Redirect("~/Identity/Account/Login");
+            }
+            else
+            {
+                var cards = await _context.Cards
+                    .Where(c => c.CardHolder == _user)
+                    .ToListAsync();
+
+                if (cards != null)
+                {
+                    return View(cards);
+                }
+                else
+                {
+                    return Problem("Entity set 'BankingAppContext.Cards' is null.");
+                }
+            }
         }
+
+
 
         // GET: Cards/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -56,10 +87,11 @@ namespace BankingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CardNumber,ExpirationDate")] Card card)
+        public async Task<IActionResult> Create([Bind("Id,Name, CardNumber, CVV,ExpirationDate,IsLocked")] Card card)
         {
+            card.CardHolder = getUser();
             if (ModelState.IsValid)
-            {
+            {  
                 _context.Add(card);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -88,7 +120,7 @@ namespace BankingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CardNumber,ExpirationDate")] Card card)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CardNumber,ExpirationDate,IsLocked")] Card card)
         {
             if (id != card.Id)
             {

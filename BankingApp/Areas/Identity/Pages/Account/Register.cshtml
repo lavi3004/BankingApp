@@ -12,7 +12,7 @@
             <h2>Create a new account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
+            @*<div class="form-floating mb-3">
                 <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="John" />
                 <label asp-for="Input.FirstName">FirstName</label>
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
@@ -21,13 +21,13 @@
                 <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="Smith" />
                 <label asp-for="Input.LastName">LastName</label>
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="email" />
                 <label asp-for="Input.Email">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
+           @* <div class="form-floating mb-3">
                 <input asp-for="Input.Adress" class="form-control" autocomplete="adress" aria-required="true" placeholder="str. Tree, nr.1" />
                 <label asp-for="Input.Adress">Adress</label>
                 <span asp-validation-for="Input.Adress" class="text-danger"></span>
@@ -36,7 +36,7 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="phonenumber" aria-required="true" placeholder="0711111111" />
                 <label asp-for="Input.PhoneNumber">PhoneNumber</label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.Password">Password</label>

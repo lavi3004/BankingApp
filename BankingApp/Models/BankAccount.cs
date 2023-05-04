@@ -1,4 +1,6 @@
-﻿namespace BankingApp.Models;
+﻿using BankingApp.Areas.Identity.Data;
+
+namespace BankingApp.Models;
 
 public class BankAccount
 {
@@ -11,6 +13,8 @@ public class BankAccount
     public float Balance { get; set; }
 
     public string Currency { get; set; } = string.Empty;
+
+    public User User { get; set; }
 
     public ICollection<Transaction>? Transactions { get; set; }
 

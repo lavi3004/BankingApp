@@ -12,7 +12,7 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddMvc().AddControllersAsServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

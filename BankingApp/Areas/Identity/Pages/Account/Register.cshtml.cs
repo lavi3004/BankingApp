@@ -71,25 +71,25 @@ namespace BankingApp.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(50, ErrorMessage ="The first name field should have a maximum of 50 characters")]
-            [Display(Name = "FirstName")]
-            public string FirstName { get; set; }
+            //[Required]
+            //[StringLength(50, ErrorMessage ="The first name field should have a maximum of 50 characters")]
+            //[Display(Name = "FirstName")]
+            //public string FirstName { get; set; }
 
-            [Required]
-            [Display(Name = "LastName")]
-            [StringLength(50, ErrorMessage = "The last name field should have a maximum of 50 characters")]
-            public string LastName { get; set; }
+            //[Required]
+            //[Display(Name = "LastName")]
+            //[StringLength(50, ErrorMessage = "The last name field should have a maximum of 50 characters")]
+            //public string LastName { get; set; }
 
-            [Required]
-            [Display(Name = "Adress")]
-            [StringLength(50, ErrorMessage = "The adress field should have a maximum of 50 characters")]
-            public string Adress { get; set; }
+            //[Required]
+            //[Display(Name = "Adress")]
+            //[StringLength(50, ErrorMessage = "The adress field should have a maximum of 50 characters")]
+            //public string Adress { get; set; }
 
-            [Required]
-            [Display(Name = "PhoneNumber")]
-            [StringLength(50, ErrorMessage = "The phone number field should have a maximum of 10 characters")]
-            public string PhoneNumber { get; set; }
+            //[Required]
+            //[Display(Name = "PhoneNumber")]
+            //[StringLength(50, ErrorMessage = "The phone number field should have a maximum of 10 characters")]
+            //public string PhoneNumber { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -135,10 +135,10 @@ namespace BankingApp.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
-                user.Adress = Input.Adress;
-                user.PhoneNumber = Input.PhoneNumber;
+                //user.FirstName = Input.FirstName;
+                //user.LastName = Input.LastName;
+                //user.Adress = Input.Adress;
+                //user.PhoneNumber = Input.PhoneNumber;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
