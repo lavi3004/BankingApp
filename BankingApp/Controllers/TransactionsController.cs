@@ -22,6 +22,10 @@ namespace BankingApp.Controllers
 
         private User _user;
 
+        public List<BankAccount> _bankAccounts { get; set; }
+
+        public int _selectedValue { get; set; }
+
         public TransactionsController(BankingAppContext context, UserManager<User> userManager, BankAccountsController bankAccountsController)
         {
             _context = context;
@@ -55,6 +59,16 @@ namespace BankingApp.Controllers
                     .Where(t => t.Sender == _user)
                     .ToListAsync();
 
+                var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
+
+                var selectListItems = bankAccounts.Select(ba => new SelectListItem
+                {
+                    Value = ba.Id.ToString(),
+                    Text = ba.Name
+                }).ToList();
+
+                ViewBag.BankAccounts = selectListItems;
+
                 if (transactions != null)
                 {
                     return View(transactions);
@@ -85,8 +99,19 @@ namespace BankingApp.Controllers
         }
 
         // GET: Transactions/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            _user = _userManager.FindByIdAsync(userId).Result;
+            var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
+
+            var selectListItems = bankAccounts.Select(ba => new SelectListItem
+            {
+                Value = ba.Id.ToString(),
+                Text = ba.Name
+            }).ToList();
+
+            ViewBag.BankAccounts = selectListItems;
             return View();
         }
 
@@ -97,6 +122,7 @@ namespace BankingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Amount,Date,Reciver")] Transaction transaction)
         {
+
             transaction.Sender= getUser();
             if (ModelState.IsValid)
             {

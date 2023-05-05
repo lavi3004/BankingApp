@@ -4,6 +4,7 @@ using BankingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankingApp.Migrations
 {
     [DbContext(typeof(BankingAppContext))]
-    partial class BankingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230505183550_UpdateTransaction")]
+    partial class UpdateTransaction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -359,7 +362,7 @@ namespace BankingApp.Migrations
             modelBuilder.Entity("BankingApp.Models.Transaction", b =>
                 {
                     b.HasOne("BankingApp.Models.BankAccount", "Account")
-                        .WithMany()
+                        .WithMany("Transactions")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -432,6 +435,8 @@ namespace BankingApp.Migrations
             modelBuilder.Entity("BankingApp.Models.BankAccount", b =>
                 {
                     b.Navigation("Cards");
+
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

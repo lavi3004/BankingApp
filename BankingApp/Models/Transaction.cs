@@ -10,6 +10,8 @@ public class Transaction
 
     public DateTime Date { get; set; }
 
+    public BankAccount Account { get; set; } = new BankAccount();
+
     public User Sender { get; set; } = new User();
 
     public string Reciver { get; set; } = string.Empty;

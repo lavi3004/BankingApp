@@ -6,6 +6,8 @@ public class BankAccount
 {
     public int Id { get; set; }
 
+    public string Name { get; set; }
+
     public string IBAN { get; set; } 
 
     public string SWIFT { get; set; } = string.Empty;
@@ -14,9 +16,7 @@ public class BankAccount
 
     public string Currency { get; set; } = string.Empty;
 
-    public User User { get; set; }
-
-    public ICollection<Transaction>? Transactions { get; set; }
+    public User User { get; set; } = new User();
 
     public ICollection<Card>? Cards { get; set; }
 }
