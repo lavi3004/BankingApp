@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BankingApp.Data;
 using BankingApp.Models;
+using BankingApp.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace BankingApp.Controllers
 {
@@ -14,17 +16,68 @@ namespace BankingApp.Controllers
     {
         private readonly BankingAppContext _context;
 
-        public TransactionsController(BankingAppContext context)
+        private readonly UserManager<User> _userManager;
+
+        private readonly BankAccountsController _bankAccountsController;
+
+        private User _user;
+
+        public List<BankAccount> _bankAccounts { get; set; }
+
+        public int _selectedValue { get; set; }
+
+        public TransactionsController(BankingAppContext context, UserManager<User> userManager, BankAccountsController bankAccountsController)
         {
             _context = context;
+            _userManager = userManager;
+            _bankAccountsController = bankAccountsController;
         }
+
+        private User getUser()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            User user = _userManager.FindByIdAsync(userId).Result;
+
+            return user;
+        }
+
 
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-              return _context.Transactions != null ? 
-                          View(await _context.Transactions.ToListAsync()) :
-                          Problem("Entity set 'BankingAppContext.Transactions'  is null.");
+            var userId = _userManager.GetUserId(HttpContext.User);
+            _user = _userManager.FindByIdAsync(userId).Result;
+
+
+            if (userId == null)
+            {
+                return Redirect("~/Identity/Account/Login");
+            }
+            else
+            {
+                var transactions = await _context.Transactions
+                    .Where(t => t.Sender == _user)
+                    .ToListAsync();
+
+                var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
+
+                var selectListItems = bankAccounts.Select(ba => new SelectListItem
+                {
+                    Value = ba.Id.ToString(),
+                    Text = ba.Name
+                }).ToList();
+
+                ViewBag.BankAccounts = selectListItems;
+
+                if (transactions != null)
+                {
+                    return View(transactions);
+                }
+                else
+                {
+                    return Problem("Entity set 'BankingAppContext.Cards' is null.");
+                }
+            }
         }
 
         // GET: Transactions/Details/5
@@ -46,8 +99,19 @@ namespace BankingApp.Controllers
         }
 
         // GET: Transactions/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            _user = _userManager.FindByIdAsync(userId).Result;
+            var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
+
+            var selectListItems = bankAccounts.Select(ba => new SelectListItem
+            {
+                Value = ba.Id.ToString(),
+                Text = ba.Name
+            }).ToList();
+
+            ViewBag.BankAccounts = selectListItems;
             return View();
         }
 
@@ -56,8 +120,11 @@ namespace BankingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Amount,Date,Reciver")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("Id,AccountName,Amount,Date,Reciver")] Transaction transaction)
         {
+
+            transaction.Sender= getUser();
+            _bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
             if (ModelState.IsValid)
             {
                 _context.Add(transaction);

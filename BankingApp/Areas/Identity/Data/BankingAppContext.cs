@@ -23,17 +23,15 @@ public class BankingAppContext : IdentityDbContext<User>
 
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
     }
-
-    public DbSet<BankingApp.Models.Model> Model { get; set; } = default!;
 }
 
 public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<User> builder)
     {
-        builder.Property(u => u.FirstName).HasMaxLength(50);
-        builder.Property(u => u.LastName).HasMaxLength(50);
-        builder.Property(u => u.Adress).HasMaxLength(50);
-        builder.Property(u => u.PhoneNumber).HasMaxLength(25);
+        //builder.Property(u => u.FirstName).HasMaxLength(50);
+        //builder.Property(u => u.LastName).HasMaxLength(50);
+        //builder.Property(u => u.Adress).HasMaxLength(50);
+       // builder.Property(u => u.PhoneNumber).HasMaxLength(25);
     }
 }

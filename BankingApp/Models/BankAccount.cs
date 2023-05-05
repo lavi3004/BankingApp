@@ -1,8 +1,12 @@
-﻿namespace BankingApp.Models;
+﻿using BankingApp.Areas.Identity.Data;
+
+namespace BankingApp.Models;
 
 public class BankAccount
 {
     public int Id { get; set; }
+
+    public string Name { get; set; }
 
     public string IBAN { get; set; } 
 
@@ -12,7 +16,7 @@ public class BankAccount
 
     public string Currency { get; set; } = string.Empty;
 
-    public ICollection<Transaction>? Transactions { get; set; }
+    public User User { get; set; } = new User();
 
     public ICollection<Card>? Cards { get; set; }
 }

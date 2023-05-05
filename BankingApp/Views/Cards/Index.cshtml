@@ -13,6 +13,7 @@
     <style>
         .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
@@ -144,151 +145,43 @@
     </style>
 </head>
 
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
 <body>
     <div class="container">
-        <div class="column">
-            <div class="col-md-4">
+            @foreach (var item in Model)
+            {
                 <div class="card-box">
-                    <h2 class="card-title">Card 1</h2>
+                        <h2 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h2>
 
                     <p class="card-heading-text">IBAN</p>
-                    <p class="card-text">0000 1111 2222 3333</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.CardNumber)</p>
 
                     <div class="card-exp-cvv-box">
                         <div class="expiry">
                             <p class="card-heading-text">Expiry date</p>
-                            <p class="card-text">07/25</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.ExpirationDate)</p>
                         </div>
                         <div class="cvv">
                             <p class="card-heading-text">CVV</p>
-                            <p class="card-text">000</p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.CVV)</p>
                         </div>
                     </div>
 
-                    <button class="circle-button1">Block Card</button>
-                    <button class="circle-button2">Set limit</button>
-                    <button class="circle-button3">Trans actions</button>
+                      @*  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card-box">
-                    <h2 class="card-title">Card 2</h2>
-
-                    <p class="card-heading-text">IBAN</p>
-                    <p class="card-text">0000 1111 2222 3333</p>
-
-                    <div class="card-exp-cvv-box">
-                        <div class="expiry">
-                            <p class="card-heading-text">Expiry date</p>
-                            <p class="card-text">07/25</p>
-                        </div>
-                        <div class="cvv">
-                            <p class="card-heading-text">CVV</p>
-                            <p class="card-text">000</p>
-                        </div>
-                    </div>
-
-                    <button class="circle-button1">Block Card</button>
-                    <button class="circle-button2">Set limit</button>
-                    <button class="circle-button3">Trans actions</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-box">
-                    <h2 class="card-title">Card 3</h2>
-
-                    <p class="card-heading-text">IBAN</p>
-                    <p class="card-text">0000 1111 2222 3333</p>
-
-                    <div class="card-exp-cvv-box">
-                        <div class="expiry">
-                            <p class="card-heading-text">Expiry date</p>
-                            <p class="card-text">07/25</p>
-                        </div>
-                        <div class="cvv">
-                            <p class="card-heading-text">CVV</p>
-                            <p class="card-text">000</p>
-                        </div>
-                    </div>
-
-                    <button class="circle-button1">Block Card</button>
-                    <button class="circle-button2">Set limit</button>
-                    <button class="circle-button3">Trans actions</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-box">
-                    <h2 class="card-title">Card 4</h2>
-
-                    <p class="card-heading-text">IBAN</p>
-                    <p class="card-text">0000 1111 2222 3333</p>
-
-                    <div class="card-exp-cvv-box">
-                        <div class="expiry">
-                            <p class="card-heading-text">Expiry date</p>
-                            <p class="card-text">07/25</p>
-                        </div>
-                        <div class="cvv">
-                            <p class="card-heading-text">CVV</p>
-                            <p class="card-text">000</p>
-                        </div>
-                    </div>
-
-                    <button class="circle-button1">Block Card</button>
-                    <button class="circle-button2">Set limit</button>
-                    <button class="circle-button3">Trans actions</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-box">
-                    <h2 class="card-title">Card 5</h2>
-
-                    <p class="card-heading-text">IBAN</p>
-                    <p class="card-text">0000 1111 2222 3333</p>
-
-                    <div class="card-exp-cvv-box">
-                        <div class="expiry">
-                            <p class="card-heading-text">Expiry date</p>
-                            <p class="card-text">07/25</p>
-                        </div>
-                        <div class="cvv">
-                            <p class="card-heading-text">CVV</p>
-                            <p class="card-text">000</p>
-                        </div>
-                    </div>
-
-                    <button class="circle-button1">Block Card</button>
-                    <button class="circle-button2">Set limit</button>
-                    <button class="circle-button3">Trans actions</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-box">
-                    <h2 class="card-title">Card 6</h2>
-
-                    <p class="card-heading-text">IBAN</p>
-                    <p class="card-text">0000 1111 2222 3333</p>
-
-                    <div class="card-exp-cvv-box">
-                        <div class="expiry">
-                            <p class="card-heading-text">Expiry date</p>
-                            <p class="card-text">07/25</p>
-                        </div>
-                        <div class="cvv">
-                            <p class="card-heading-text">CVV</p>
-                            <p class="card-text">000</p>
-                        </div>
-                    </div>
-
-                    <button class="circle-button1">Block Card</button>
-                    <button class="circle-button2">Set limit</button>
-                    <button class="circle-button3">Trans actions</button>
-                </div>
-            </div>
-        </div>
+            }
     </div>
-    <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js" integrity="sha512-nJscfM5IvZ8BW6w5U5c1rhkWP9Ro3z8CzeWAnYJcP+bKr0QOhZbR+OwOroju1+rDZLzv9sgKj8nA45I2NgUPFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 </body>
+
+
+
+
+
+

@@ -12,6 +12,20 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (ViewBag.BankAccounts == null)
+            {
+                <p>No bank accounts found.</p>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label for="SelectedBankAccountId">Select a Bank Account:</label>
+                    <select id="SelectedBankAccountId" asp-for="AccountName" class="form-control" asp-items="ViewBag.BankAccounts">
+                        <option value="">-- Select Bank Account --</option>
+                    </select>
+                </div>
+            }
+
             <div class="form-group">
                 <label asp-for="Amount" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" />

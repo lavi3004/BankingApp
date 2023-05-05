@@ -4,6 +4,7 @@ using BankingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankingApp.Migrations
 {
     [DbContext(typeof(BankingAppContext))]
-    partial class BankingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230504202221_UpdateUser2")]
+    partial class UpdateUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,10 +109,6 @@ namespace BankingApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SWIFT")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -172,11 +171,10 @@ namespace BankingApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BankAccountId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
@@ -190,6 +188,8 @@ namespace BankingApp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
 
                     b.HasIndex("SenderId");
 
@@ -335,11 +335,9 @@ namespace BankingApp.Migrations
 
             modelBuilder.Entity("BankingApp.Models.BankAccount", b =>
                 {
-                    b.HasOne("BankingApp.Areas.Identity.Data.User", "User")
+                    b.HasOne("BankingApp.Areas.Identity.Data.User", null)
                         .WithMany("BankAccounts")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BankingApp.Models.Card", b =>
@@ -357,6 +355,10 @@ namespace BankingApp.Migrations
 
             modelBuilder.Entity("BankingApp.Models.Transaction", b =>
                 {
+                    b.HasOne("BankingApp.Models.BankAccount", null)
+                        .WithMany("Transactions")
+                        .HasForeignKey("BankAccountId");
+
                     b.HasOne("BankingApp.Areas.Identity.Data.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId");
@@ -423,6 +425,8 @@ namespace BankingApp.Migrations
             modelBuilder.Entity("BankingApp.Models.BankAccount", b =>
                 {
                     b.Navigation("Cards");
+
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

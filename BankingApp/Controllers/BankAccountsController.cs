@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BankingApp.Data;
 using BankingApp.Models;
+using BankingApp.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace BankingApp.Controllers
 {
@@ -14,18 +16,58 @@ namespace BankingApp.Controllers
     {
         private readonly BankingAppContext _context;
 
-        public BankAccountsController(BankingAppContext context)
+        private readonly UserManager<User> _userManager;
+
+        private User _user;
+
+        public BankAccountsController(BankingAppContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
+        }
+
+        private User getUser()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            User user = _userManager.FindByIdAsync(userId).Result;
+
+            return user;
         }
 
         // GET: BankAccounts
         public async Task<IActionResult> Index()
         {
-              return _context.BankAccounts != null ? 
-                          View(await _context.BankAccounts.ToListAsync()) :
-                          Problem("Entity set 'BankingAppContext.BankAccounts'  is null.");
+            var userId = _userManager.GetUserId(HttpContext.User);
+            _user = _userManager.FindByIdAsync(userId).Result;
+
+            if (userId == null)
+            {
+                return Redirect("~/Identity/Account/Login");
+            }
+            else
+            {
+                var bankAccounts = await _context.BankAccounts
+                    .Where(c => c.User == _user)
+                    .ToListAsync();
+
+                if (bankAccounts != null)
+                {
+                    return View(bankAccounts);
+                }
+                else
+                {
+                    return Problem("Entity set 'BankingAppContext.BankAccounts' is null.");
+                }
+            }
         }
+
+        public async Task<List<BankAccount>> GetBankAccountsOfAUser(User user)
+        {
+            return await _context.BankAccounts
+                .Where(c => c.User == user)
+                .ToListAsync();
+        }
+
 
         // GET: BankAccounts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -48,6 +90,13 @@ namespace BankingApp.Controllers
         // GET: BankAccounts/Create
         public IActionResult Create()
         {
+            ViewBag.Currency = Enum.GetValues(typeof(CurrencyEnum))
+                                .Cast<CurrencyEnum>()
+                                .Select(c => new SelectListItem
+                                {
+                                    Text = c.ToString(),
+                                    Value = c.ToString()
+                                });
             return View();
         }
 
@@ -56,8 +105,9 @@ namespace BankingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IBAN,SWIFT,Balance,Currency")] BankAccount bankAccount)
+        public async Task<IActionResult> Create([Bind("Id,Name,IBAN,SWIFT,Balance,Currency")] BankAccount bankAccount)
         {
+            bankAccount.User = getUser();
             if (ModelState.IsValid)
             {
                 _context.Add(bankAccount);
@@ -116,6 +166,31 @@ namespace BankingApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(bankAccount);
+        }
+
+        public void EditWhileMakingAPayment(string bankAccountName ,int ammount)
+        {
+            var bankAccount = _context.BankAccounts
+                .Where(ba => ba.Name.Contains(bankAccountName))
+                .First();
+
+            bankAccount.Balance = bankAccount.Balance - ammount;
+            try
+            {
+                _context.Update(bankAccount);
+                 _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BankAccountExists(bankAccount.Id))
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
 
         // GET: BankAccounts/Delete/5

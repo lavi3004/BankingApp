@@ -4,6 +4,7 @@ using BankingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankingApp.Migrations
 {
     [DbContext(typeof(BankingAppContext))]
-    partial class BankingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230505184334_UpdateTransaction4")]
+    partial class UpdateTransaction4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,9 +175,8 @@ namespace BankingApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -190,6 +192,8 @@ namespace BankingApp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("SenderId");
 
@@ -357,9 +361,17 @@ namespace BankingApp.Migrations
 
             modelBuilder.Entity("BankingApp.Models.Transaction", b =>
                 {
+                    b.HasOne("BankingApp.Models.BankAccount", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BankingApp.Areas.Identity.Data.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId");
+
+                    b.Navigation("Account");
 
                     b.Navigation("Sender");
                 });
