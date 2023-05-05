@@ -90,6 +90,13 @@ namespace BankingApp.Controllers
         // GET: BankAccounts/Create
         public IActionResult Create()
         {
+            ViewBag.Currency = Enum.GetValues(typeof(CurrencyEnum))
+                                .Cast<CurrencyEnum>()
+                                .Select(c => new SelectListItem
+                                {
+                                    Text = c.ToString(),
+                                    Value = c.ToString()
+                                });
             return View();
         }
 
@@ -161,8 +168,12 @@ namespace BankingApp.Controllers
             return View(bankAccount);
         }
 
-        public void EditWhileMakingAPayment(BankAccount bankAccount ,int ammount)
+        public void EditWhileMakingAPayment(string bankAccountName ,int ammount)
         {
+            var bankAccount = _context.BankAccounts
+                .Where(ba => ba.Name.Contains(bankAccountName))
+                .First();
+
             bankAccount.Balance = bankAccount.Balance - ammount;
             try
             {

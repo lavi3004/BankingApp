@@ -34,7 +34,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Currency" class="control-label"></label>
-                <input asp-for="Currency" class="form-control" />
+                <select id="SelectedBankAccountId" asp-for="Currency" class="form-control" asp-items="ViewBag.Currency">
+                    <option value="">-- Select Currency --</option>
+                </select>
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
 

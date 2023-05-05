@@ -10,7 +10,7 @@ public class Transaction
 
     public DateTime Date { get; set; }
 
-    public BankAccount Account { get; set; } = new BankAccount();
+    public string AccountName { get; set; }
 
     public User Sender { get; set; } = new User();
 

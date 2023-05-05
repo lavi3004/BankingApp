@@ -120,10 +120,11 @@ namespace BankingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Amount,Date,Reciver")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("Id,AccountName,Amount,Date,Reciver")] Transaction transaction)
         {
 
             transaction.Sender= getUser();
+            _bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
             if (ModelState.IsValid)
             {
                 _context.Add(transaction);
