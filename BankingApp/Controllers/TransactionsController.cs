@@ -98,18 +98,26 @@ namespace BankingApp.Controllers
 			return View(transaction);
 		}
 
-		// GET: Transactions/Create
-		public async Task<IActionResult> CreateAsync()
-		{
-			var userId = _userManager.GetUserId(HttpContext.User);
-			_user = _userManager.FindByIdAsync(userId).Result;
-			var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
+        // GET: Transactions/Create
+        public async Task<IActionResult> CreateAsync()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            _user = _userManager.FindByIdAsync(userId).Result;
 
-			var selectListItems = bankAccounts.Select(ba => new SelectListItem
-			{
-				Value = ba.Id.ToString(),
-				Text = ba.Name
-			}).ToList();
+
+            if (userId == null)
+            {
+                return Redirect("~/Identity/Account/Login");
+            }
+            else
+            {
+                var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
+
+                var selectListItems = bankAccounts.Select(ba => new SelectListItem
+                {
+                    Value = ba.Id.ToString(),
+                    Text = ba.Name
+                }).ToList();
 
 			ViewBag.BankAccounts = selectListItems;
 			return View();

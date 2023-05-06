@@ -17,24 +17,25 @@
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="Transactions" asp-action="Create">Make a payment</a>
-						</li>
-						
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="Cards" asp-action="Index">Cards</a>
-						</li>
-						
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="Transactions" asp-action="Index">Transactions</a>
-						</li>
-
-
-					</ul> 
-				</div>
-				
+				@if (User.Identity.IsAuthenticated)
+				{
+					<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+						<ul class="navbar-nav flex-grow-1">
+							@*<li class="nav-item">
+								<a class="nav-link text-dark" asp-controller="BankAccounts" asp-action="Index">My bank accounts</a>
+							</li>*@
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-controller="Transactions" asp-action="Create">Make a payment</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-controller="Cards" asp-action="Index">Cards</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-controller="Transactions" asp-action="Index">Transactions</a>
+							</li>
+						</ul>
+					</div>
+				}								
 			</div>
 			<partial name="_LoginPartial"/>
 		</nav>
