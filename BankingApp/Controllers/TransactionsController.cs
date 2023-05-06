@@ -103,16 +103,27 @@ namespace BankingApp.Controllers
         {
             var userId = _userManager.GetUserId(HttpContext.User);
             _user = _userManager.FindByIdAsync(userId).Result;
-            var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
 
-            var selectListItems = bankAccounts.Select(ba => new SelectListItem
+
+            if (userId == null)
             {
-                Value = ba.Id.ToString(),
-                Text = ba.Name
-            }).ToList();
+                return Redirect("~/Identity/Account/Login");
+            }
+            else
+            {
+                var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
 
-            ViewBag.BankAccounts = selectListItems;
-            return View();
+                var selectListItems = bankAccounts.Select(ba => new SelectListItem
+                {
+                    Value = ba.Id.ToString(),
+                    Text = ba.Name
+                }).ToList();
+
+                ViewBag.BankAccounts = selectListItems;
+                return View();
+            }
+           
+            
         }
 
         // POST: Transactions/Create
@@ -124,7 +135,7 @@ namespace BankingApp.Controllers
         {
 
             transaction.Sender= getUser();
-            _bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
+            await _bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
             if (ModelState.IsValid)
             {
                 _context.Add(transaction);
