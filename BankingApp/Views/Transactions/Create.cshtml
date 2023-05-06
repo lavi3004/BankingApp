@@ -1,57 +1,65 @@
 ﻿@model BankingApp.Models.Transaction
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Transaction</h4>
+<div class="text-center">
+	<h1 style="text-align:center; color: #026efd;">Make a payment</h1>
+</div>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @if (ViewBag.BankAccounts == null)
-            {
-                <p>No bank accounts found.</p>
-            }
-            else
-            {
-                <div class="form-group">
-                    <label for="SelectedBankAccountId">Select a Bank Account:</label>
-                    <select id="SelectedBankAccountId" asp-for="AccountName" class="form-control" asp-items="ViewBag.BankAccounts">
-                        <option value="">-- Select Bank Account --</option>
-                    </select>
-                </div>
-            }
+<div class="row justify-content-center">
+	<div class="col-md-6">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			@if (ViewBag.BankAccounts == null)
+			{
+				<p>No bank accounts found.</p>
+			}
+			else
+			{
+				<div class="form-group">
+					<label for="SelectedBankAccountId">Select a Bank Account:</label>
+					<select id="SelectedBankAccountId" asp-for="AccountName" class="form-control" asp-items="ViewBag.BankAccounts">
+						<option value="">-- Select Bank Account --</option>
+					</select>
+				</div>
+			}
+			
+			<div class="form-group">
+				<label asp-for="Reciver" class="control-label">Sent to</label>
+				<input asp-for="Reciver" class="form-control" />
+				<span asp-validation-for="Reciver" class="text-danger"></span>
+			</div>
 
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Reciver" class="control-label"></label>
-                <input asp-for="Reciver" class="form-control" />
-                <span asp-validation-for="Reciver" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+			<div class="form-group">
+				<label asp-for="Amount" class="control-label"></label>
+				<input asp-for="Amount" class="form-control" />
+				<span asp-validation-for="Amount" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Date" class="control-label"></label>
+				<p>@DateTime.Now.ToString("yyyy-MM-dd")</p>
+			</div>
+
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+		
+		<div class="form-group" style="margin-top: 15px;">
+			<a asp-action="Index" class="btn btn-secondary">
+				<i class="fas fa-arrow-left"></i> Back to Transactions List
+			</a>
+		</div>
+
+	</div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
