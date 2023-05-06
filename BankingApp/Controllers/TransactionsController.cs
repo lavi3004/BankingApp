@@ -135,7 +135,7 @@ namespace BankingApp.Controllers
         {
 
             transaction.Sender= getUser();
-            await _bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
+             _bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
             if (ModelState.IsValid)
             {
                 _context.Add(transaction);
