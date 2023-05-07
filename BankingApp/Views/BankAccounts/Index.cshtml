@@ -1,59 +1,74 @@
 ﻿@model IEnumerable<BankingApp.Models.BankAccount>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+	<h1 style="color: #026efd;" >
+		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bank" viewBox="0 0 16 16">
+			<path d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.501.501 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89L8 0ZM3.777 3h8.447L8 1 3.777 3ZM2 6v7h1V6H2Zm2 0v7h2.5V6H4Zm3.5 0v7h1V6h-1Zm2 0v7H12V6H9.5ZM13 6v7h1V6h-1Zm2-1V4H1v1h14Zm-.39 9H1.39l-.25 1h13.72l-.25-1Z"/>
+		</svg> Accounts
+	</h1>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+<hr />
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IBAN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SWIFT)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Balance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IBAN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SWIFT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Balance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.IBAN)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.SWIFT)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Balance)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Currency)
+		</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var item in Model) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.IBAN)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.SWIFT)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Balance)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Currency)
+			</td>
+			<td>
+				<p class="btn btn-primary">
+					<a asp-action="Details" asp-route-id="@item.Id" class="text-white">Details</a> 
+				</p>
+				<p class="btn btn-danger">
+						<a asp-action="Delete" asp-route-id="@item.Id" class="text-white">Delete</a>
+				</p>
+				
+				
+			</td>
+		</tr>
+	}
+	</tbody>
 </table>
+
+<p class="btn btn-primary">
+	<a asp-action="Create" class="text-white">Create New Bank Account</a>
+</p>

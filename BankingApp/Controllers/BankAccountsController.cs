@@ -168,7 +168,7 @@ namespace BankingApp.Controllers
             return View(bankAccount);
         }
 
-        public void EditWhileMakingAPayment(string bankAccountName ,int ammount)
+        public async Task EditWhileMakingAPayment(string bankAccountName ,int ammount)
         {
             var bankAccount = _context.BankAccounts
                 .Where(ba => ba.Name.Contains(bankAccountName))
@@ -178,7 +178,7 @@ namespace BankingApp.Controllers
             try
             {
                 _context.Update(bankAccount);
-                 _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
