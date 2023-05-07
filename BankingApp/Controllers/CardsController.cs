@@ -4,9 +4,11 @@ using BankingApp.Data;
 using BankingApp.Models;
 using Microsoft.AspNetCore.Identity;
 using BankingApp.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankingApp.Controllers
 {
+    [Authorize]
     public class CardsController : Controller
     {
         private readonly BankingAppContext _context;
@@ -35,12 +37,6 @@ namespace BankingApp.Controllers
             var userId = _userManager.GetUserId(HttpContext.User);
             _user = _userManager.FindByIdAsync(userId).Result;
 
-            if (userId == null)
-            {
-                return Redirect("~/Identity/Account/Login");
-            }
-            else
-            {
                 var cards = await _context.Cards
                     .Where(c => c.CardHolder == _user)
                     .ToListAsync();
@@ -53,7 +49,6 @@ namespace BankingApp.Controllers
                 {
                     return Problem("Entity set 'BankingAppContext.Cards' is null.");
                 }
-            }
         }
 
 
