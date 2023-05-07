@@ -83,6 +83,8 @@
             color: #ffffff;
             background-color: #0d6efd;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            padding: 10px 0;
             
             position: absolute;
             left: 430px;
@@ -99,6 +101,8 @@
             color: #ffffff;
             background-color: #0d6efd;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            padding: 16px 0;
 
             position: absolute;
             left: 430px;
@@ -116,8 +120,7 @@
             background-color: #0d6efd;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
             text-align: center;
-            /*padding: 10px 0;*/
-            vertical-align: middle;
+            padding: 8px 0;
 
             position: absolute;
             left: 430px;
@@ -125,17 +128,17 @@
         }
 
         .circle-button1:hover {
-            background-color: #0B5ED7;
+            background-color: #ffffff;
             border: 2px solid #0B5ED7;
         }
 
         .circle-button2:hover {
-            background-color: #0B5ED7;
+            background-color: #ffffff;
             border: 2px solid #0B5ED7;
         }
 
         .circle-button3:hover {
-            background-color: #0B5ED7;
+            background-color: #ffffff;
             border: 2px solid #0B5ED7;
         }
 
@@ -174,20 +177,19 @@
                         </div>
                     </div>
 
-                <button class="circle-button1">Block Card</button>
-                <button class="circle-button2">Set limit</button>
-                @*<button class="circle-button3">Trans actions</button>*@
-                <a class="circle-button3" asp-controller="Transactions" asp-action="Index">Trans actions</a>
+                <a class="circle-button1" asp-action="Edit" asp-route-id="@item.Id">Block<br>Card</a>
+                <a class="circle-button2" asp-action="Details" asp-route-id="@item.Id">Set limit</a>
+                <a class="circle-button3" asp-controller="Transactions" asp-action="Index" >Trans<br>actions</a>
 
-                      @*  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </div>
             }
     </div>
+
     <p class="btn btn-primary">
         <a asp-action="Create" class="text-white">Create New Card</a>
     </p>
+
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js" integrity="sha512-nJscfM5IvZ8BW6w5U5c1rhkWP9Ro3z8CzeWAnYJcP+bKr0QOhZbR+OwOroju1+rDZLzv9sgKj8nA45I2NgUPFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
 </div>
 
