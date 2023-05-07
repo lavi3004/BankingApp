@@ -168,7 +168,7 @@ namespace BankingApp.Controllers
             return View(bankAccount);
         }
 
-        public async void EditWhileMakingAPayment(string bankAccountName ,int ammount)
+        public async Task EditWhileMakingAPayment(string bankAccountName ,int ammount)
         {
             var bankAccount = _context.BankAccounts
                 .Where(ba => ba.Name.Contains(bankAccountName))

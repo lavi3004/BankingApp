@@ -98,29 +98,30 @@ namespace BankingApp.Controllers
 			return View(transaction);
 		}
 
-        // GET: Transactions/Create
-        public async Task<IActionResult> CreateAsync()
-        {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            _user = _userManager.FindByIdAsync(userId).Result;
+		// GET: Transactions/Create
+		public async Task<IActionResult> CreateAsync()
+		{
+			var userId = _userManager.GetUserId(HttpContext.User);
+			_user = _userManager.FindByIdAsync(userId).Result;
 
 
-            if (userId == null)
-            {
-                return Redirect("~/Identity/Account/Login");
-            }
-            else
-            {
-                var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
+			if (userId == null)
+			{
+				return Redirect("~/Identity/Account/Login");
+			}
+			else
+			{
+				var bankAccounts = await _bankAccountsController.GetBankAccountsOfAUser(_user);
 
-                var selectListItems = bankAccounts.Select(ba => new SelectListItem
-                {
-                    Value = ba.Id.ToString(),
-                    Text = ba.Name
-                }).ToList();
+				var selectListItems = bankAccounts.Select(ba => new SelectListItem
+				{
+					Value = ba.Id.ToString(),
+					Text = ba.Name
+				}).ToList();
 
-			ViewBag.BankAccounts = selectListItems;
-			return View();
+				ViewBag.BankAccounts = selectListItems;
+				return View();
+			}
 		}
 
 		// POST: Transactions/Create
@@ -132,7 +133,7 @@ namespace BankingApp.Controllers
 		{
 			transaction.Date = DateTime.Now;
 			transaction.Sender= getUser();
-			_bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
+			await _bankAccountsController.EditWhileMakingAPayment( transaction.AccountName,transaction.Amount);
 			if (ModelState.IsValid)
 			{
 				_context.Add(transaction);
