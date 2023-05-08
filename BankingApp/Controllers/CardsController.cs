@@ -4,6 +4,7 @@ using BankingApp.Data;
 using BankingApp.Models;
 using Microsoft.AspNetCore.Identity;
 using BankingApp.Areas.Identity.Data;
+using System.Collections;
 
 namespace BankingApp.Controllers
 {
@@ -19,6 +20,11 @@ namespace BankingApp.Controllers
         {
             _context = context;
             _userManager = userManager;
+        }
+
+        public CardsController(BankingAppContext context)
+        {
+            _context = context;
         }
 
         private User getUser()
@@ -56,10 +62,31 @@ namespace BankingApp.Controllers
             }
         }
 
+        public async Task<IEnumerable<Card>> GetCards()
+        {
+            var cards = await _context.Cards
+                               .ToListAsync();
+
+            return cards;
+        }
+
+        public Card FindCardById(int cardId)
+        {
+            // Find the card with the specified ID
+            var card =  _context.Cards.Find(cardId);
+
+            // Check if the card was found
+            if (card == null)
+            {
+                return null;
+            }
+            return card;
+        }
 
 
-        // GET: Cards/Details/5
-        public async Task<IActionResult> Details(int? id)
+
+            // GET: Cards/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Cards == null)
             {
@@ -92,11 +119,17 @@ namespace BankingApp.Controllers
             card.CardHolder = getUser();
             if (ModelState.IsValid)
             {  
-                _context.Add(card);
-                await _context.SaveChangesAsync();
+               createCard(card);
                 return RedirectToAction(nameof(Index));
             }
             return View(card);
+        }
+
+
+        public async void createCard(Card card)
+        {
+            _context.Add(card);
+            await _context.SaveChangesAsync();
         }
 
         // GET: Cards/Edit/5
